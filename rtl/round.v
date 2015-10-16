@@ -42,7 +42,7 @@ module one_round (clk, state_in, key, state_out);
     assign z2 = p02 ^ p13 ^ p20 ^ p31 ^ k2;
     assign z3 = p01 ^ p12 ^ p23 ^ p30 ^ k3;
 
-    always @ (posedge clk)
+    always @ (*)
         state_out <= {z0, z1, z2, z3};
 endmodule
 
@@ -75,7 +75,7 @@ module final_round (clk, state_in, key_in, state_out);
     assign z2 = {p20, p31, p02, p13} ^ k2;
     assign z3 = {p30, p01, p12, p23} ^ k3;
 
-    always @ (posedge clk)
+    always @ (*)
         state_out <= {z0, z1, z2, z3};
 endmodule
 

@@ -23,7 +23,7 @@ module aes_128(clk, state, key, out);
                    k1, k2, k3, k4, k5, k6, k7, k8, k9,
                    k0b, k1b, k2b, k3b, k4b, k5b, k6b, k7b, k8b, k9b;
 
-    always @ (posedge clk)
+    always @ (*)
       begin
         s0 <= state ^ key;
         k0 <= key;
@@ -74,7 +74,7 @@ module expand_key_128(clk, in, out_1, out_2, rcon);
     assign v2 = v1 ^ k2;
     assign v3 = v2 ^ k3;
 
-    always @ (posedge clk)
+    always @ (*)
         {k0a, k1a, k2a, k3a} <= {v0, v1, v2, v3};
 
     S4
@@ -85,7 +85,7 @@ module expand_key_128(clk, in, out_1, out_2, rcon);
     assign k2b = k2a ^ k4a;
     assign k3b = k3a ^ k4a;
 
-    always @ (posedge clk)
+    always @ (*)
         out_1 <= {k0b, k1b, k2b, k3b};
 
     assign out_2 = {k0b, k1b, k2b, k3b};

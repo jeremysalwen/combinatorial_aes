@@ -25,7 +25,7 @@ module aes_192 (clk, state, key, out);
     wire   [191:0] k1, k2, k3, k4, k5, k6, k7, k8, k9, k10, k11;
     wire   [127:0] k0b, k1b, k2b, k3b, k4b, k5b, k6b, k7b, k8b, k9b, k10b, k11b;
 
-    always @ (posedge clk)
+    always @ (*)
       begin
         s0 <= state ^ key[191:64];
         k0 <= key;
@@ -80,7 +80,7 @@ module expand_key_type_A_192 (clk, in, rcon, out_1, out_2);
     assign v2 = v1 ^ k2;
     assign v3 = v2 ^ k3;
 
-    always @ (posedge clk)
+    always @ (*)
         {k0a, k1a, k2a, k3a, k4a, k5a} <= {v0, v1, v2, v3, k4, k5};
 
     S4
@@ -92,7 +92,7 @@ module expand_key_type_A_192 (clk, in, rcon, out_1, out_2);
     assign k3b = k3a ^ k6a;
     assign {k4b, k5b} = {k4a, k5a};
 
-    always @ (posedge clk)
+    always @ (*)
         out_1 <= {k0b, k1b, k2b, k3b, k4b, k5b};
 
     assign out_2 = {k0b, k1b, k2b, k3b};
@@ -115,10 +115,10 @@ module expand_key_type_B_192 (clk, in, out_1, out_2);
     assign v4 = v3 ^ k4;
     assign v5 = v4 ^ k5;
 
-    always @ (posedge clk)
+    always @ (*)
         {k0a, k1a, k2a, k3a, k4a, k5a} <= {k0, k1, v2, v3, v4, v5};
 
-    always @ (posedge clk)
+    always @ (*)
         out_1 <= {k0a, k1a, k2a, k3a, k4a, k5a};
 
     assign out_2 = {k2a, k3a, k4a, k5a};
@@ -143,7 +143,7 @@ module expand_key_type_C_192 (clk, in, rcon, out_1, out_2);
     assign v0 = {k0[31:24] ^ rcon, k0[23:0]};
     assign v1 = v0 ^ k1;
 
-    always @ (posedge clk)
+    always @ (*)
         {k0a, k1a, k2a, k3a, k4a, k5a} <= {v0, v1, k2, k3, v4, v5};
 
     S4
@@ -153,7 +153,7 @@ module expand_key_type_C_192 (clk, in, rcon, out_1, out_2);
     assign k1b = k1a ^ k6a;
     assign {k2b, k3b, k4b, k5b} = {k2a, k3a, k4a, k5a};
 
-    always @ (posedge clk)
+    always @ (*)
         out_1 <= {k0b, k1b, k2b, k3b, k4b, k5b};
 
     assign out_2 = {k4b, k5b, k0b, k1b};
@@ -176,7 +176,7 @@ module expand_key_type_D_192 (clk, in, rcon, out_1, out_2);
     assign v0 = {k0[31:24] ^ rcon, k0[23:0]};
     assign v1 = v0 ^ k1;
 
-    always @ (posedge clk)
+    always @ (*)
         {k0a, k1a, k2a, k3a, k4a, k5a} <= {v0, v1, k2, k3, k4, k5};
 
     S4
@@ -186,7 +186,7 @@ module expand_key_type_D_192 (clk, in, rcon, out_1, out_2);
     assign k1b = k1a ^ k6a;
     assign {k2b, k3b, k4b, k5b} = {k2a, k3a, k4a, k5a};
 
-    always @ (posedge clk)
+    always @ (*)
         out_1 <= {k0b, k1b, k2b, k3b, k4b, k5b};
 
     assign out_2 = {k4b, k5b, k0b, k1b};

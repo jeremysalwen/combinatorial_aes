@@ -61,7 +61,7 @@ module S (clk, in, out);
     input [7:0] in;
     output reg [7:0] out;
 
-    always @ (posedge clk)
+    always @ (*)
     case (in)
     8'h00: out <= 8'h63;
     8'h01: out <= 8'h7c;
@@ -328,7 +328,7 @@ module xS (clk, in, out);
     input [7:0] in;
     output reg [7:0] out;
 
-    always @ (posedge clk)
+    always @ (*)
     case (in)
     8'h00: out <= 8'hc6;
     8'h01: out <= 8'hf8;

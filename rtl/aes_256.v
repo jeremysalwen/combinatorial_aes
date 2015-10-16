@@ -28,7 +28,7 @@ module aes_256 (clk, state, key, out);
     wire   [127:0] k0b, k1b, k2b, k3b, k4b, k5b, k6b, k7b, k8b,
                    k9b, k10b, k11b, k12b, k13b;
 
-    always @ (posedge clk)
+    always @ (*)
       begin
         s0 <= state ^ key[255:128];
         k0 <= key;
@@ -93,7 +93,7 @@ module expand_key_type_A_256 (clk, in, rcon, out_1, out_2);
     assign v2 = v1 ^ k2;
     assign v3 = v2 ^ k3;
 
-    always @ (posedge clk)
+    always @ (*)
         {k0a, k1a, k2a, k3a, k4a, k5a, k6a, k7a} <= {v0, v1, v2, v3, k4, k5, k6, k7};
 
     S4
@@ -105,7 +105,7 @@ module expand_key_type_A_256 (clk, in, rcon, out_1, out_2);
     assign k3b = k3a ^ k8a;
     assign {k4b, k5b, k6b, k7b} = {k4a, k5a, k6a, k7a};
 
-    always @ (posedge clk)
+    always @ (*)
         out_1 <= {k0b, k1b, k2b, k3b, k4b, k5b, k6b, k7b};
 
     assign out_2 = {k0b, k1b, k2b, k3b};
@@ -128,7 +128,7 @@ module expand_key_type_B_256 (clk, in, out_1, out_2);
     assign v6 = v5 ^ k6;
     assign v7 = v6 ^ k7;
 
-    always @ (posedge clk)
+    always @ (*)
         {k0a, k1a, k2a, k3a, k4a, k5a, k6a, k7a} <= {k0, k1, k2, k3, k4, v5, v6, v7};
 
     S4
@@ -140,7 +140,7 @@ module expand_key_type_B_256 (clk, in, out_1, out_2);
     assign k6b = k6a ^ k8a;
     assign k7b = k7a ^ k8a;
 
-    always @ (posedge clk)
+    always @ (*)
         out_1 <= {k0b, k1b, k2b, k3b, k4b, k5b, k6b, k7b};
 
     assign out_2 = {k4b, k5b, k6b, k7b};
