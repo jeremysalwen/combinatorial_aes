@@ -14,50 +14,48 @@
  * limitations under the License.
  */
 
-module table_lookup (clk, state, p0, p1, p2, p3);
-    input clk;
+module table_lookup (state, p0, p1, p2, p3);
     input [31:0] state;
     output [31:0] p0, p1, p2, p3;
     wire [7:0] b0, b1, b2, b3;
     
     assign {b0, b1, b2, b3} = state;
     T
-        t0 (clk, b0, {p0[23:0], p0[31:24]}),
-        t1 (clk, b1, {p1[15:0], p1[31:16]}),
-        t2 (clk, b2, {p2[7:0],  p2[31:8]} ),
-        t3 (clk, b3, p3);
+        t0 (b0, {p0[23:0], p0[31:24]}),
+        t1 ( b1, {p1[15:0], p1[31:16]}),
+        t2 (b2, {p2[7:0],  p2[31:8]} ),
+        t3 (b3, p3);
 endmodule
 
 /* substitue four bytes in a word */
-module S4 (clk, in, out);
-    input clk;
+module S4 (in, out);
+    
     input [31:0] in;
     output [31:0] out;
     
     S
-        S_0 (clk, in[31:24], out[31:24]),
-        S_1 (clk, in[23:16], out[23:16]),
-        S_2 (clk, in[15:8],  out[15:8] ),
-        S_3 (clk, in[7:0],   out[7:0]  );
+        S_0 (in[31:24], out[31:24]),
+        S_1 (in[23:16], out[23:16]),
+        S_2 (in[15:8],  out[15:8] ),
+        S_3 (in[7:0],   out[7:0]  );
 endmodule
 
 /* S_box, S_box, S_box*(x+1), S_box*x */
-module T (clk, in, out);
-    input         clk;
+module T (in, out);
     input  [7:0]  in;
     output [31:0] out;
     
     S
-        s0 (clk, in, out[31:24]);
+        s0 (in, out[31:24]);
     assign out[23:16] = out[31:24];
     xS
-        s4 (clk, in, out[7:0]);
+        s4 (in, out[7:0]);
     assign out[15:8] = out[23:16] ^ out[7:0];
 endmodule
 
 /* S box */
-module S (clk, in, out);
-    input clk;
+module S (in, out);
+    
     input [7:0] in;
     output reg [7:0] out;
 
@@ -323,8 +321,8 @@ module S (clk, in, out);
 endmodule
 
 /* S box * x */
-module xS (clk, in, out);
-    input clk;
+module xS (in, out);
+    
     input [7:0] in;
     output reg [7:0] out;
 
